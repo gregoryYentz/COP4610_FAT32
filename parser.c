@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "reserve.c"
 #include <string.h>
 
 struct reservedRegion region;
 
+
 unsigned int hex_to_int(unsigned char * temp, int num);
 void print_info();
+int go_to_clus(int t);
+int get_next_clus(int c);
+int to_FAT(int s);
 
+FILE* img;
+
+<<<<<<< HEAD
 FILE * img;
 
 FILE* GetImageFile() {
@@ -15,6 +23,15 @@ FILE* GetImageFile() {
 
 void parser(const char * fileName){
   
+=======
+FILE * GetImageFile()
+{
+  return img;
+  }
+
+void parser(char * fileName)
+{
+>>>>>>> 1b725825b825d607c2b3ce67d645dc8563f5c9fd
   img = fopen(fileName, "r+b");
   if(img == NULL){
     printf("Error: Invalid File\n");
@@ -22,6 +39,7 @@ void parser(const char * fileName){
   }
 
   unsigned char temp[11];
+  char data[32];
   fseek(img,0, SEEK_SET);
   fread(temp, sizeof(char), 3, img);
   region.BS_jmpboot = hex_to_int(temp,3) & 0xff;
@@ -160,11 +178,14 @@ void parser(const char * fileName){
   fread(temp, sizeof(char), 8, img);
   temp[8] = '\0';
   strcpy(region.BS_FilSysType, temp);
- 
 
+  /*
+  fseek(img, go_to_clus(2), SEEK_SET);
+  fread(data, sizeof(char), 32, img);
+  printf("DATA:\t%s\n", data);
+  */
   
-  //firstdatasector = resvdsectcnt + (numfATS * FATsz32)
-  //first sector of clus = firstdatasector + ((N - 2) * secperclus) where N is clus number
+  
   
 }
 
@@ -242,4 +263,32 @@ void print_info()
 
   printf("FILSYSTYPE: %s\n", region.BS_FilSysType);
 
+}
+
+int go_to_clus(int t)
+{
+  int first = region.BPB_RsvdSecCnt + (region.BPB_NumFATs * region.BPB_FATSz32);
+  int dt = ((t - 2) * region.BPB_SecPerClus) + first;
+  int final = dt * region.BPB_BytsPerSec;
+  return final;
+}
+
+int to_FAT(int s)
+{
+  int SEC = region.BPB_RsvdSecCnt + ((s * 4)/region.BPB_BytsPerSec);
+  int off = (s * 4) % region.BPB_BytsPerSec;
+
+  SEC = SEC * region.BPB_BytsPerSec;
+  SEC = SEC + (s * 4);
+  return SEC;
+}
+
+int get_next_clus(int c)
+{
+  char data[32];
+  fseek(img,(to_FAT(c)), SEEK_SET);
+  
+  fread(data,sizeof(char), 4, img);
+  printf("\n32: %x\n",hex_to_int(data,4));
+  return hex_to_int(data,4);
 }
