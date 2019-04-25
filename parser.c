@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "reserve.c"
 #include <string.h>
 
 struct reservedRegion region;
@@ -14,8 +13,6 @@ int to_FAT(int s);
 
 FILE* img;
 
-<<<<<<< HEAD
-FILE * img;
 
 FILE* GetImageFile() {
   return img;
@@ -23,15 +20,6 @@ FILE* GetImageFile() {
 
 void parser(const char * fileName){
   
-=======
-FILE * GetImageFile()
-{
-  return img;
-  }
-
-void parser(char * fileName)
-{
->>>>>>> 1b725825b825d607c2b3ce67d645dc8563f5c9fd
   img = fopen(fileName, "r+b");
   if(img == NULL){
     printf("Error: Invalid File\n");
