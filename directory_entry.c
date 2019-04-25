@@ -23,43 +23,52 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 		do{
 			fseek(imgFILE, sector+nextByte, SEEK_SET);
 			fread(data, sizeof(char), 32, imgFILE);
-			if (data[11] & 0x0F){
-				nextByte+=32;
+
+			if (data[0] == 0x00 || (unsigned char)data[0] == 0xE5) {
+				//printf("\nRAWDATA[0]==0\n");
+				nextByte += 32;
 				continue;
 			}
 			else{
-				int i;
-				for(i=0; i<11; i++){
-					if(data[i]!=' '){
-						returnEntrys[INDEX].DIR_Name[i] = data[i];
-					}
-					else{
-						returnEntrys[INDEX].DIR_Name[i] = '\0';
-						break;
-					}
+				if (data[11] & 0x0F){
+					nextByte+=32;
+					continue;
 				}
-				returnEntrys[INDEX].DIR_Name[11] = '\0';
-				returnEntrys[INDEX].DIR_Attr = data[11];
-				//for DIR_FstClus
-				unsigned char temp[4];
-				
-				//returnEntrys[0].DIR_FstClusHI = hex_to_int(temp, 2); //parser.c
-				temp[0] = data[26];
-				temp[1] = data[27];
-				temp[2] = data[20];
-				temp[3] = data[21];
-				int w;
-				returnEntrys[INDEX].DIR_FstClusLO = hex_to_int(temp, 4); //parser.c
-				returnEntrys[INDEX].DIR_FileSize = hex_to_int(data+28, 4); //parser.c
-				returnEntrys[INDEX].END_OF_ARRAY = 0;
+				else{
+					int i;
+					for(i=0; i<11; i++){
+						if(data[i]!=' '){
+							returnEntrys[INDEX].DIR_Name[i] = data[i];
+						}
+						else{
+							returnEntrys[INDEX].DIR_Name[i] = '\0';
+							break;
+						}
+					}
+					returnEntrys[INDEX].DIR_Name[11] = '\0';
+					returnEntrys[INDEX].DIR_Attr = data[11];
+					//for DIR_FstClus
+					unsigned char temp[4];
+					
+					//returnEntrys[0].DIR_FstClusHI = hex_to_int(temp, 2); //parser.c
+					temp[0] = data[26];
+					temp[1] = data[27];
+					temp[2] = data[20];
+					temp[3] = data[21];
+					int w;
+					returnEntrys[INDEX].DIR_FstClusLO = hex_to_int(temp, 4); //parser.c
+					returnEntrys[INDEX].DIR_FileSize = hex_to_int(data+28, 4); //parser.c
+					returnEntrys[INDEX].END_OF_ARRAY = 0;
 
-				INDEX++;
-				nextByte+=32;
+					INDEX++;
+					nextByte+=32;
+				}
 			}
 		}while(data[0] != 0x00 && nextByte < region.BPB_BytsPerSec*region.BPB_SecPerClus);
 		tempcurrentClusterNum = get_next_clus(tempcurrentClusterNum); //parser.c
+		//printf("next_cluster_index: %u\n", tempcurrentClusterNum);
 	}while(tempcurrentClusterNum<0x0FFFFFF8);
-	returnEntrys[INDEX-1].END_OF_ARRAY = 1;
+	returnEntrys[INDEX].END_OF_ARRAY = 1;
 	return returnEntrys;
 }
 

@@ -9,7 +9,7 @@ Complete
 -size
 
 Partial
--ls (doesn't acccept arguments)
+-ls (still opens files)
 
 Sudo Code
 -cd

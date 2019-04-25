@@ -26,7 +26,12 @@ void LS(struct INSTRUCTION* instr){
 			//printLS(getPreviousCluster(CURRENTCLUSTERNUM);
 		}
 		else{
-			printLS(isValidDirectory(instr->tokens[1]));
+			if(isValidDirectory(instr->tokens[1])!=0){
+				printLS(isValidDirectory(instr->tokens[1]));
+			}
+			else{
+				printf("NOT A VALID DIRECTORY\n");
+			}
 		}
 	}
 	else if(instr->numTokens==1){
