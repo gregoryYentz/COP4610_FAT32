@@ -6,6 +6,7 @@ Gregory Yentz
 Complete
 -exit
 -info
+-size
 
 Partial
 -ls (doesn't acccept arguments)
@@ -13,4 +14,3 @@ Partial
 Sudo Code
 -cd
 -open
--size

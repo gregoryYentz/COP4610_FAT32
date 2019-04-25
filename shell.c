@@ -8,6 +8,7 @@ struct INSTRUCTION{
 	int numTokens;
 };
 
+#include"tools.c"
 #include"parser.c"
 #include"directory_entry.c"
 
@@ -51,7 +52,7 @@ void Shell(const char* file_name){
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "cd")==0){
-			CD(&instruction);		//cd.c
+			//CD(&instruction);		//cd.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "size")==0){
@@ -67,7 +68,7 @@ void Shell(const char* file_name){
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "open")==0){
-			OPEN(&instruction);		//open.c
+			//OPEN(&instruction);		//open.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "close")==0){

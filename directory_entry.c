@@ -29,11 +29,16 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 			else{
 				int i;
 				for(i=0; i<11; i++){
-					returnEntrys[INDEX].DIR_Name[i] = data[i];
+					if(data[i]!=' '){
+						returnEntrys[INDEX].DIR_Name[i] = data[i];
+					}
+					else{
+						returnEntrys[INDEX].DIR_Name[i] = '\0';
+						break;
+					}
 				}
 				returnEntrys[INDEX].DIR_Name[11] = '\0';
 				returnEntrys[INDEX].DIR_Attr = data[11];
-				printf("\nDIR_Attr: %x\n", data[11]);
 				//for DIR_FstClus
 				unsigned char temp[4];
 				
@@ -43,19 +48,16 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 				temp[2] = data[20];
 				temp[3] = data[21];
 				int w;
-				for(w=0; w<4; w++){
-					printf("\ntemp[%d]: %u\n", w, temp[w]);
-				}
 				returnEntrys[INDEX].DIR_FstClusLO = hex_to_int(temp, 4); //parser.c
-				returnEntrys[INDEX].DIR_FileSize = hex_to_int(data+28, 4);
+				returnEntrys[INDEX].DIR_FileSize = hex_to_int(data+28, 4); //parser.c
+				returnEntrys[INDEX].END_OF_ARRAY = 0;
 
-				//printf("FstClusHI: %u\n", returnEntrys[0].DIR_FstClusHI);
-				printf("FstClusLO: %u\n", returnEntrys[INDEX].DIR_FstClusLO);
 				INDEX++;
 				nextByte+=32;
 			}
 		}while(data[0] != 0x00 && nextByte < region.BPB_BytsPerSec*region.BPB_SecPerClus);
-		currentClusterNum = get_next_clus(currentClusterNum);
+		currentClusterNum = get_next_clus(currentClusterNum); //parser.c
 	}while(currentClusterNum<0x0FFFFFF8);
+	returnEntrys[INDEX-1].END_OF_ARRAY = 1;
 	return returnEntrys;
 }

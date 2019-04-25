@@ -4,23 +4,30 @@
 #include<string.h>
 
 void printLS(unsigned int clusterNUM){
-	DirEntry* temp = GetDirectoryContents(clusterNUM);
- unsigned int i = 0;
-  while (!temp[i].END_OF_ARRAY) {
-    char tempBuff[32];
-    memset(tempBuff, '\0', 32);
-    strcpy(tempBuff, temp[i++].DIR_Name);
-    //ToStandardFormat(tempBuff);
-    printf("%s\n", tempBuff);
-  }	
+	DirEntry* temp = GetDirectoryContents(clusterNUM); //directory_entry.c
+	unsigned int i = 0;
+	while (!temp[i].END_OF_ARRAY) {
+		char tempBuff[12];
+		memset(tempBuff, '\0', 12);
+		strcpy(tempBuff, temp[i++].DIR_Name);
+		//ToStandardFormat(tempBuff);
+		printf("%s\n", tempBuff);
+
+	}
 }
 
 void LS(struct INSTRUCTION* instr){
 	if(instr->numTokens==2){
-		printf(">ls %s\n", instr->tokens[1]);
+		if(strcmp(instr->tokens[1], ".")==0){
+			//printLS(getCurrentCluster());
+			printLS(region.BPB_RootClus);
+		}
+		else if(strcmp(instr->tokens[1], "..")==0){
+			//printLS(getPreviousCluster(getCurrentCluster()));
+		}
 	}
 	else{
-		//printf("ls ERROR\n");
+		//printf("INCORRECT ATTRIBUTES\n");
 		//for testing
 		printLS(region.BPB_RootClus);
 
