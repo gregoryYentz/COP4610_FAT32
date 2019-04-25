@@ -4,7 +4,6 @@
 
 struct reservedRegion region;
 
-
 unsigned int hex_to_int(unsigned char * temp, int num);
 void print_info();
 int go_to_clus(int t);
@@ -12,7 +11,6 @@ int get_next_clus(int c);
 int to_FAT(int s);
 
 FILE* img;
-
 
 FILE* GetImageFile() {
   return img;
@@ -253,7 +251,7 @@ void print_info()
 
 }
 
-int go_to_clus(int t)
+int go_to_clus(int t)   //returns byte location of data at cluster[t] in data region
 {
   int first = region.BPB_RsvdSecCnt + (region.BPB_NumFATs * region.BPB_FATSz32);
   int dt = ((t - 2) * region.BPB_SecPerClus) + first;
@@ -277,6 +275,5 @@ int get_next_clus(int c)
   fseek(img,(to_FAT(c)), SEEK_SET);
   
   fread(data,sizeof(char), 4, img);
-  printf("\n32: %x\n",hex_to_int(data,4));
   return hex_to_int(data,4);
 }

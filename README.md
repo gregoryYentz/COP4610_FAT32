@@ -6,3 +6,6 @@ Gregory Yentz
 Complete
 -exit
 -info
+
+Partial
+-ls (doesn't acccept arguments)
