@@ -8,6 +8,8 @@ struct INSTRUCTION{
 	int numTokens;
 };
 
+#include"filetable.c"
+
 #include"info.c"
 #include"ls.c"
 #include"cd.c"

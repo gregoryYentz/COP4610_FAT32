@@ -5,4 +5,6 @@
 
 void INFO(){
 	printf(">info\n");
+	//printINFO();
+
 }
