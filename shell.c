@@ -9,6 +9,7 @@ struct INSTRUCTION{
 };
 
 #include"parser.c"
+#include"directory_entry.c"
 
 #include"info.c"
 #include"ls.c"

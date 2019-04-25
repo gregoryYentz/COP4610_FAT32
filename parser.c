@@ -7,16 +7,19 @@ struct reservedRegion region;
 unsigned int hex_to_int(unsigned char * temp, int num);
 void print_info();
 
-void parser(const char * fileName)
-{
-  FILE * img;
+FILE * img;
+
+FILE* GetImageFile() {
+  return img;
+}
+
+void parser(const char * fileName){
   
   img = fopen(fileName, "r+b");
-  if(img == NULL)
-    {
-      printf("Error: Invalid File\n");
-      exit(1);
-    }
+  if(img == NULL){
+    printf("Error: Invalid File\n");
+    exit(1);
+  }
 
   unsigned char temp[11];
   fseek(img,0, SEEK_SET);
