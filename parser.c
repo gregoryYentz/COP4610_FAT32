@@ -3,6 +3,8 @@
 #include <string.h>
 
 unsigned int CURRENTCLUSTERNUM;
+unsigned int CLUSTERNUMSTACK[100];
+int CLUSTERNUMSTACKINDEX;
 
 struct reservedRegion region;
 
@@ -173,6 +175,9 @@ void parser(const char * fileName){
   
   
   CURRENTCLUSTERNUM = region.BPB_RootClus;
+
+  CLUSTERNUMSTACK[0] = CURRENTCLUSTERNUM;
+  CLUSTERNUMSTACKINDEX = 0;
 }
 
 // Function to account for FAT32 being little endian, the least significant bits 
