@@ -42,51 +42,51 @@ void Shell(const char* file_name){
 		}
 
 		else if(strcmp(instruction.tokens[0], "info")==0){
-			INFO();
+			INFO();					//info.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "ls")==0){
-			LS(&instruction);
+			LS(&instruction);		//ls.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "cd")==0){
-			CD(&instruction);
+			CD(&instruction);		//cd.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "size")==0){
-			SIZE(&instruction);
+			SIZE(&instruction);		//size.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "creat")==0){
-			CREAT(&instruction);
+			CREAT(&instruction);	//creat.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "mkdir")==0){
-			MKDIR(&instruction);
+			MKDIR(&instruction);	//mkdir.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "open")==0){
-			OPEN(&instruction);
+			OPEN(&instruction);		//open.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "close")==0){
-			CLOSE(&instruction);
+			CLOSE(&instruction);	//close.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "read")==0){
-			READ(&instruction);
+			READ(&instruction);		//read.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "write")==0){
-			WRITE(&instruction);
+			WRITE(&instruction);	//write.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "rm")==0){
-			RM(&instruction);
+			RM(&instruction);		//rm.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "rmdir")==0){
-			RMDIR(&instruction);
+			RMDIR(&instruction);	//rmdir.c
 			continue;
 		}
 		else{
