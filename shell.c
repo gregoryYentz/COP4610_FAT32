@@ -8,7 +8,7 @@ struct INSTRUCTION{
 	int numTokens;
 };
 
-#include"filetable.c"
+#include"parser.c"
 
 #include"info.c"
 #include"ls.c"

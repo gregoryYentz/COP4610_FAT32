@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "reserve.c"
 #include <string.h>
 
 struct reservedRegion region;
@@ -8,7 +7,7 @@ struct reservedRegion region;
 unsigned int hex_to_int(unsigned char * temp, int num);
 void print_info();
 
-void parser(char * fileName)
+void parser(const char * fileName)
 {
   FILE * img;
   

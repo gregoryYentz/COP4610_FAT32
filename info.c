@@ -4,7 +4,6 @@
 #include<string.h>
 
 void INFO(){
-	printf(">info\n");
-	//printINFO();
-
+	//printf(">info\n");
+	print_info(); //parser.c
 }
