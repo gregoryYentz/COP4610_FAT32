@@ -31,6 +31,7 @@ void userINPUT(struct INSTRUCTION* instr);
 void Shell(const char* file_name){
 	struct INSTRUCTION instruction;
 	while(1==1){
+		printf("CURRENTCLUSTERNUM: %u\n", CURRENTCLUSTERNUM);
 		instruction.tokens = NULL;
 		instruction.numTokens = 0;
 		

@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+unsigned int CURRENTCLUSTERNUM;
+
 struct reservedRegion region;
 
 unsigned int hex_to_int(unsigned char * temp, int num);
@@ -170,7 +172,7 @@ void parser(const char * fileName){
   */
   
   
-  
+  CURRENTCLUSTERNUM = region.BPB_RootClus;
 }
 
 // Function to account for FAT32 being little endian, the least significant bits 

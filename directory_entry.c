@@ -8,16 +8,17 @@ typedef struct DirectoryEntry {
 	unsigned char END_OF_ARRAY;
 } DirEntry;
 
+unsigned int isValidDirectory(char* dirName);
 
 DirEntry* GetDirectoryContents(unsigned int clusterNum){
 	FILE* imgFILE = GetImageFile();		//parser.c
-	static DirEntry returnEntrys[20];
-	unsigned int currentClusterNum = clusterNum;
+	static DirEntry returnEntrys[2048];
+	unsigned int tempcurrentClusterNum = clusterNum;
 	unsigned char data[32]; //data being read in 32 byte chunks from data region
 	unsigned int INDEX = 0;
 
 	do{
-		unsigned int sector = go_to_clus(currentClusterNum);	//parser.c
+		unsigned int sector = go_to_clus(tempcurrentClusterNum);	//parser.c
 		unsigned int nextByte = 0;
 		do{
 			fseek(imgFILE, sector+nextByte, SEEK_SET);
@@ -56,8 +57,27 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 				nextByte+=32;
 			}
 		}while(data[0] != 0x00 && nextByte < region.BPB_BytsPerSec*region.BPB_SecPerClus);
-		currentClusterNum = get_next_clus(currentClusterNum); //parser.c
-	}while(currentClusterNum<0x0FFFFFF8);
+		tempcurrentClusterNum = get_next_clus(tempcurrentClusterNum); //parser.c
+	}while(tempcurrentClusterNum<0x0FFFFFF8);
 	returnEntrys[INDEX-1].END_OF_ARRAY = 1;
 	return returnEntrys;
+}
+
+unsigned int isValidDirectory(char* dirName){
+	unsigned int isValid = 0;
+	DirEntry* temp = GetDirectoryContents(CURRENTCLUSTERNUM); //directory_entry.c
+	int i=0;
+	while (!temp[i].END_OF_ARRAY) {
+		char tempBuff[12];
+		memset(tempBuff, '\0', 12);
+		strcpy(tempBuff, temp[i].DIR_Name);
+		if(strcmp(tempBuff, dirName)==0){
+			isValid = temp[i].DIR_FstClusLO;
+		}
+		i++;
+
+	}
+
+
+	return isValid;
 }

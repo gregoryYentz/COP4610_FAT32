@@ -19,17 +19,20 @@ void printLS(unsigned int clusterNUM){
 void LS(struct INSTRUCTION* instr){
 	if(instr->numTokens==2){
 		if(strcmp(instr->tokens[1], ".")==0){
-			//printLS(getCurrentCluster());
-			printLS(region.BPB_RootClus);
+			printLS(CURRENTCLUSTERNUM);
+			//printLS(region.BPB_RootClus);
 		}
 		else if(strcmp(instr->tokens[1], "..")==0){
-			//printLS(getPreviousCluster(getCurrentCluster()));
+			//printLS(getPreviousCluster(CURRENTCLUSTERNUM);
+		}
+		else{
+			printLS(isValidDirectory(instr->tokens[1]));
 		}
 	}
+	else if(instr->numTokens==1){
+		printLS(CURRENTCLUSTERNUM);
+	}
 	else{
-		//printf("INCORRECT ATTRIBUTES\n");
-		//for testing
-		printLS(region.BPB_RootClus);
-
+		printf("INCORRECT ATTRIBUTES\n");
 	}
 }
