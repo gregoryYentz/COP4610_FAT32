@@ -1,3 +1,8 @@
 # COP4610_FAT32
 
-TESTING
+Kyle Molter
+Gregory Yentz
+
+Complete
+-exit
+-info
