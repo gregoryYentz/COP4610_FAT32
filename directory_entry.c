@@ -47,6 +47,7 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 					printf("\ntemp[%d]: %u\n", w, temp[w]);
 				}
 				returnEntrys[INDEX].DIR_FstClusLO = hex_to_int(temp, 4); //parser.c
+				returnEntrys[INDEX].DIR_FileSize = hex_to_int(data+28, 4);
 
 				//printf("FstClusHI: %u\n", returnEntrys[0].DIR_FstClusHI);
 				printf("FstClusLO: %u\n", returnEntrys[INDEX].DIR_FstClusLO);
