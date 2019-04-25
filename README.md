@@ -9,3 +9,8 @@ Complete
 
 Partial
 -ls (doesn't acccept arguments)
+
+Sudo Code
+-cd
+-open
+-size
