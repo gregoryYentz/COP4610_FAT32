@@ -9,8 +9,8 @@ Complete
 -size
 
 Partial
+-cd (can't perform cd..)
 -ls (still opens files)
 
 Sudo Code
--cd
 -open
