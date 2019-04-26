@@ -11,8 +11,10 @@ void CD(struct INSTRUCTION* instr){
 		}
 		else if(strcmp(instr->tokens[1], "..")==0){
 			//go_to_cluster(previousCLuster(CURRENTCLUSTERNUM));
-			CURRENTCLUSTERNUM = CLUSTERNUMSTACK[CLUSTERNUMSTACKINDEX-1];
-			CLUSTERNUMSTACKINDEX -= 1;
+			if(CLUSTERNUMSTACKINDEX!=0){
+				CURRENTCLUSTERNUM = CLUSTERNUMSTACK[CLUSTERNUMSTACKINDEX-1];
+				CLUSTERNUMSTACKINDEX -= 1;
+			}
 		}
 		else{
 			if(isValidDirectory(instr->tokens[1])!=0){
