@@ -23,8 +23,9 @@ struct INSTRUCTION{
 #include"close.c"
 #include"read.c"
 #include"write.c"
-#include"rm.c"
 #include"rmdir.c"
+#include"rm.c"
+
 
 
 void userINPUT(struct INSTRUCTION* instr);
