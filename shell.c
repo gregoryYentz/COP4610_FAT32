@@ -11,6 +11,7 @@ struct INSTRUCTION{
 #include"tools.c"
 #include"parser.c"
 #include"directory_entry.c"
+#include"file_table.c"
 
 #include"info.c"
 #include"ls.c"

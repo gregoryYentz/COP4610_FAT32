@@ -12,7 +12,7 @@ void printLS(unsigned int clusterNUM){
 		strcpy(tempBuff, temp[i].DIR_Name);
 		//ToStandardFormat(tempBuff);
 		printf("%s\n", tempBuff);
-		printf("ATTR: %d\n", temp[i].DIR_Attr);
+		//printf("ATTR: %d\n", temp[i].DIR_Attr);
 		i++;
 	}
 }
@@ -21,10 +21,9 @@ void LS(struct INSTRUCTION* instr){
 	if(instr->numTokens==2){
 		if(strcmp(instr->tokens[1], ".")==0){
 			printLS(CURRENTCLUSTERNUM);
-			//printLS(region.BPB_RootClus);
 		}
 		else if(strcmp(instr->tokens[1], "..")==0){
-			//printLS(getPreviousCluster(CURRENTCLUSTERNUM);
+			printLS(CLUSTERNUMSTACK[CLUSTERNUMSTACKINDEX-1]);
 		}
 		else{
 			if(isValidDirectory(instr->tokens[1])!=0){

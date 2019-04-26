@@ -86,10 +86,7 @@ unsigned int isValidDirectory(char* dirName){
 			}
 		}
 		i++;
-
 	}
-
-
 	return isValid;
 }
 
@@ -104,12 +101,14 @@ unsigned int isValidFile(char* fileName){
 		if(strcmp(tempBuff, fileName)==0){
 			if(temp[i].DIR_Attr==32){			//check if attr is of a file entry
 				isValid = temp[i].DIR_FstClusLO;
+				//printf("%u\t%u\n", temp[i].DIR_FstClusLO, temp[i].DIR_FstClusHI);
+				if(isValid==0){		//returns 1 for files that exist but that are empty
+					isValid=1;
+				}
+
 			}
 		}
 		i++;
-
 	}
-
-
 	return isValid;
 }
