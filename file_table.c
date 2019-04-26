@@ -10,7 +10,7 @@ int isFileOpen(const unsigned int clusterNum){
 	struct FileEntry *temp = root;
 	while(temp!=NULL){
 		if(temp->FILE_FstClusLO==clusterNum){
-			return 1;
+			return temp->FILE_Mode;
 		}
 		temp = temp->next;
 	}

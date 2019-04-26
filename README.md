@@ -8,9 +8,10 @@ Complete
 -info
 -size
 -cd
-
-Partial
--ls (still opens files)
-
-Sudo Code
+-ls
 -open
+-close
+-read
+
+Problems
+-attempting to open and close the same file with different r/w permissions sometimes freaks out the isOpen()

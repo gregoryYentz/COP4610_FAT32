@@ -3,6 +3,17 @@
 #include<unistd.h>
 #include<string.h>
 
+unsigned int getFileSize(char* fileName){
+	DirEntry* temp = GetDirectoryContents(CURRENTCLUSTERNUM); //must be changed from rootcluster to currentClusterNum
+	int i=0;
+	while(!temp[i].END_OF_ARRAY){
+		if(strcmp(temp[i].DIR_Name, fileName)==0){
+			return ("%u bytes\n", temp[i].DIR_FileSize);
+		}
+		i++;
+	}
+}
+
 void SIZE(struct INSTRUCTION* instr){
 	if(instr->numTokens==2){
 		if(isValidFile(instr->tokens[1])!=0){
@@ -24,4 +35,6 @@ void SIZE(struct INSTRUCTION* instr){
 		printf("INCORRECT ATTRIBUTES\n");
 	}
 }
+
+
 
