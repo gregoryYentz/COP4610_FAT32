@@ -11,6 +11,7 @@ typedef struct DirectoryEntry {
 unsigned int isValidDirectory(char* dirName);
 unsigned int isValidFile(char* dirName);
 
+
 DirEntry* GetDirectoryContents(unsigned int clusterNum){
 	FILE* imgFILE = GetImageFile();		//parser.c
 	static DirEntry returnEntrys[2048];
@@ -47,6 +48,7 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 					}
 					returnEntrys[INDEX].DIR_Name[11] = '\0';
 					returnEntrys[INDEX].DIR_Attr = data[11];
+					returnEntrys[INDEX].DIR_EntryByteAddress = sector + nextByte ;
 					//for DIR_FstClus
 					unsigned char temp[4];
 					
@@ -113,3 +115,4 @@ unsigned int isValidFile(char* fileName){
 
 	return isValid;
 }
+

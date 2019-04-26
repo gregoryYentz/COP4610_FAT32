@@ -26,6 +26,7 @@ void parser(const char * fileName){
     exit(1);
   }
 
+  
   unsigned char temp[11];
   char data[32];
   fseek(img,0, SEEK_SET);
@@ -205,7 +206,7 @@ int go_to_clus(int t)   //returns byte location of data at cluster[t] in data re
   return final;
 }
 
-int to_FAT(int s)
+int to_FAT(int s)      // returns the location of the first fat entry for cluster s
 {
   int SEC = region.BPB_RsvdSecCnt + ((region.BPB_RootClus * 4)/region.BPB_BytsPerSec);
   //int off = (s * 4) % region.BPB_BytsPerSec;
@@ -215,7 +216,7 @@ int to_FAT(int s)
   return SEC;
 }
 
-unsigned int get_next_clus(unsigned int c)
+unsigned int get_next_clus(unsigned int c)  // checks fat for next cluster entry value
 {
   char data[32];
   fseek(img,(to_FAT(c)), SEEK_SET);
