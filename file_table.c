@@ -20,7 +20,22 @@ int isFileOpen(const unsigned int clusterNum){
 void addFileEntry(const unsigned int clusterNum, char* mode){
 	struct FileEntry* temp = calloc(1, sizeof(struct FileEntry));
 	temp->FILE_FstClusLO = clusterNum;
-	temp->FILE_Mode = 1;
+	if(strcmp(mode, "r")==0){
+		temp->FILE_Mode = 1;
+	}
+	else if(strcmp(mode, "w")==0){
+		temp->FILE_Mode = 2;
+	}
+	else if(strcmp(mode, "rw")==0){
+		temp->FILE_Mode = 3;
+	}
+	else if(strcmp(mode, "wr")==0){
+		temp->FILE_Mode = 3;
+	}
+	else{
+		printf("FILE OPEN MODE ERROR\n");
+	}
+	
 	temp->next = NULL;
 	if(root==NULL){
 		root = temp;

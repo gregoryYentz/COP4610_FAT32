@@ -10,6 +10,7 @@ typedef struct DirectoryEntry {
 
 unsigned int isValidDirectory(char* dirName);
 unsigned int isValidFile(char* dirName);
+unsigned int isReadOnly(char* fileName);
 
 
 DirEntry* GetDirectoryContents(unsigned int clusterNum){
@@ -101,9 +102,8 @@ unsigned int isValidFile(char* fileName){
 		memset(tempBuff, '\0', 12);
 		strcpy(tempBuff, temp[i].DIR_Name);
 		if(strcmp(tempBuff, fileName)==0){
-			if(temp[i].DIR_Attr==32){			//check if attr is of a file entry
+			if(temp[i].DIR_Attr==32||temp[i].DIR_Attr==1){			//check if attr is of a file entry
 				isValid = temp[i].DIR_FstClusLO;
-				//printf("%u\t%u\n", temp[i].DIR_FstClusLO, temp[i].DIR_FstClusHI);
 				if(isValid==0){		//returns 1 for files that exist but that are empty
 					isValid=1;
 				}
@@ -113,5 +113,23 @@ unsigned int isValidFile(char* fileName){
 		i++;
 	}
 	return isValid;
+}
+
+unsigned int isReadOnly(char* fileName){
+	unsigned int isRead = 0;
+	DirEntry* temp = GetDirectoryContents(CURRENTCLUSTERNUM); //directory_entry.c
+	int i=0;
+	while (!temp[i].END_OF_ARRAY) {
+		char tempBuff[12];
+		memset(tempBuff, '\0', 12);
+		strcpy(tempBuff, temp[i].DIR_Name);
+		if(strcmp(tempBuff, fileName)==0){
+			if(temp[i].DIR_Attr==1){			//check if attr is of a file entry
+				isRead = 1;
+			}
+		}
+		i++;
+	}
+	return isRead;
 }
 

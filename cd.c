@@ -29,7 +29,7 @@ void CD(struct INSTRUCTION* instr){
 		}
 	}
 	else if(instr->numTokens==1){
-		printLS(CURRENTCLUSTERNUM);
+		//printLS(CURRENTCLUSTERNUM);
 	}
 	else{
 		printf("INCORRECT ATTRIBUTES\n");
