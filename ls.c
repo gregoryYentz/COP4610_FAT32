@@ -9,10 +9,11 @@ void printLS(unsigned int clusterNUM){
 	while (!temp[i].END_OF_ARRAY) {
 		char tempBuff[12];
 		memset(tempBuff, '\0', 12);
-		strcpy(tempBuff, temp[i++].DIR_Name);
+		strcpy(tempBuff, temp[i].DIR_Name);
 		//ToStandardFormat(tempBuff);
 		printf("%s\n", tempBuff);
-
+		printf("ATTR: %d\n", temp[i].DIR_Attr);
+		i++;
 	}
 }
 

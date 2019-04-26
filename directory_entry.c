@@ -9,6 +9,7 @@ typedef struct DirectoryEntry {
 } DirEntry;
 
 unsigned int isValidDirectory(char* dirName);
+unsigned int isValidFile(char* dirName);
 
 DirEntry* GetDirectoryContents(unsigned int clusterNum){
 	FILE* imgFILE = GetImageFile();		//parser.c
@@ -25,7 +26,6 @@ DirEntry* GetDirectoryContents(unsigned int clusterNum){
 			fread(data, sizeof(char), 32, imgFILE);
 
 			if (data[0] == 0x00 || (unsigned char)data[0] == 0xE5) {
-				//printf("\nRAWDATA[0]==0\n");
 				nextByte += 32;
 				continue;
 			}
@@ -81,7 +81,30 @@ unsigned int isValidDirectory(char* dirName){
 		memset(tempBuff, '\0', 12);
 		strcpy(tempBuff, temp[i].DIR_Name);
 		if(strcmp(tempBuff, dirName)==0){
-			isValid = temp[i].DIR_FstClusLO;
+			if(temp[i].DIR_Attr==16){			//check if attr is of a directory entry
+				isValid = temp[i].DIR_FstClusLO;
+			}
+		}
+		i++;
+
+	}
+
+
+	return isValid;
+}
+
+unsigned int isValidFile(char* fileName){
+	unsigned int isValid = 0;
+	DirEntry* temp = GetDirectoryContents(CURRENTCLUSTERNUM); //directory_entry.c
+	int i=0;
+	while (!temp[i].END_OF_ARRAY) {
+		char tempBuff[12];
+		memset(tempBuff, '\0', 12);
+		strcpy(tempBuff, temp[i].DIR_Name);
+		if(strcmp(tempBuff, fileName)==0){
+			if(temp[i].DIR_Attr==32){			//check if attr is of a file entry
+				isValid = temp[i].DIR_FstClusLO;
+			}
 		}
 		i++;
 

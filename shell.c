@@ -31,7 +31,7 @@ void userINPUT(struct INSTRUCTION* instr);
 void Shell(const char* file_name){
 	struct INSTRUCTION instruction;
 	while(1==1){
-		printf("CURRENTCLUSTERNUM: %u\n", CURRENTCLUSTERNUM);
+		//printf("CURRENTCLUSTERNUM: %u\n", CURRENTCLUSTERNUM);
 		instruction.tokens = NULL;
 		instruction.numTokens = 0;
 		
@@ -53,7 +53,7 @@ void Shell(const char* file_name){
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "cd")==0){
-			//CD(&instruction);		//cd.c
+			CD(&instruction);		//cd.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "size")==0){
@@ -69,7 +69,7 @@ void Shell(const char* file_name){
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "open")==0){
-			//OPEN(&instruction);		//open.c
+			OPEN(&instruction);		//open.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "close")==0){
