@@ -14,16 +14,16 @@ struct INSTRUCTION{
 #include"file_table.c"
 
 #include"info.c"
+#include"rmdir.c"
 #include"ls.c"
 #include"cd.c"
 #include"size.c"
-#include"creat.c"
+//#include"creat.c"		//super buggy
 #include"mkdir.c"
 #include"open.c"
 #include"close.c"
 #include"read.c"
 #include"write.c"
-#include"rmdir.c"
 #include"rm.c"
 
 
@@ -63,7 +63,7 @@ void Shell(const char* file_name){
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "creat")==0){
-			CREAT(&instruction);	//creat.c
+			//CREAT(&instruction);	//creat.c
 			continue;
 		}
 		else if(strcmp(instruction.tokens[0], "mkdir")==0){
